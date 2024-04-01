@@ -2,26 +2,26 @@ import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 
 import {
-  Container,
   CategoriesContainer,
-  Footer,
-  MenuContainer,
-  FooterContainer,
   CenteredContainer,
+  Container,
+  Footer,
+  FooterContainer,
+  MenuContainer,
 } from './styles';
 
-import { Cart } from '../components/Cart';
 import { Button } from '../components/Button';
+import { Cart } from '../components/Cart';
 import { Categories } from '../components/Categories';
 import { Header } from '../components/Header';
+import { Empty } from '../components/Icons/Empty';
 import { Menu } from '../components/Menu';
 import { TableModal } from '../components/TableModal';
-import { Empty } from '../components/Icons/Empty';
 import { Text } from '../components/Text';
-import { CartItem } from '../types/CartItem';
-import { Product } from '../types/Product';
-import { Category } from '../types/Category';
 import { api } from '../services/api';
+import { CartItem } from '../types/CartItem';
+import { Category } from '../types/Category';
+import { Product } from '../types/Product';
 
 export function Main() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -75,7 +75,7 @@ export function Main() {
 
     setCartItems((prevState) => {
       const itemIndex = prevState.findIndex(
-        (cartItem) => cartItem.product._id === product._id,
+        (cartItem) => cartItem.product.id === product.id,
       );
 
       if (itemIndex < 0) {
@@ -104,7 +104,7 @@ export function Main() {
 
     setCartItems((prevState) => {
       const itemIndex = prevState.findIndex(
-        (cartItem) => cartItem.product._id === product._id,
+        (cartItem) => cartItem.product.id === product.id,
       );
 
       const item = prevState[itemIndex];

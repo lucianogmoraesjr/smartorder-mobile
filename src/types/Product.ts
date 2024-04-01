@@ -1,12 +1,14 @@
 export interface Product {
-  _id: string;
+  id: string;
   name: string;
   description: string;
   imagePath: string;
-  price: number;
+  priceInCents: number;
   ingredients: {
-    name: string;
-    icon: string;
-    _id: string;
+    ingredient: {
+      id: string;
+      name: string;
+      emoji: string;
+    };
   }[];
 }

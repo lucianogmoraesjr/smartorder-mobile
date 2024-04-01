@@ -2,25 +2,25 @@ import { useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 
 import {
-  Item,
   Actions,
-  ProductContainer,
   Image,
-  QuantityContainer,
+  Item,
+  ProductContainer,
   ProductDetails,
+  QuantityContainer,
   Summary,
   TotalContainer,
 } from './styles';
 
+import { api } from '../../services/api';
 import { CartItem } from '../../types/CartItem';
 import { Product } from '../../types/Product';
 import { formatCurrency } from '../../utils/formatCurrency';
-import { Text } from '../Text';
-import { PlusCircle } from '../Icons/PlusCircle';
-import { MinusCircle } from '../Icons/MinusCircle';
 import { Button } from '../Button';
 import { ConfirmedOrderModal } from '../ConfirmedOrderModal';
-import { api } from '../../services/api';
+import { MinusCircle } from '../Icons/MinusCircle';
+import { PlusCircle } from '../Icons/PlusCircle';
+import { Text } from '../Text';
 
 interface CartProps {
   cartItems: CartItem[];
@@ -41,19 +41,21 @@ export function Cart({
   const [isLoading, setIsLoading] = useState(false);
 
   const total = cartItems.reduce((total, cartItem) => {
-    return (total += cartItem.product.price * cartItem.quantity);
+    return (total += (cartItem.product.priceInCents / 100) * cartItem.quantity);
   }, 0);
 
   async function handleConfirmOrder() {
     setIsLoading(true);
 
     const payload = {
-      table: selectedTable,
+      table: Number(selectedTable),
       products: cartItems.map((cartItem) => ({
-        product: cartItem.product._id,
+        productId: cartItem.product.id,
         quantity: cartItem.quantity,
       })),
     };
+
+    console.log(payload);
 
     await api.post('orders', payload);
 
@@ -73,7 +75,7 @@ export function Cart({
       {cartItems.length > 0 && (
         <FlatList
           data={cartItems}
-          keyExtractor={(cartItem) => cartItem.product._id}
+          keyExtractor={(cartItem) => cartItem.product.id}
           showsVerticalScrollIndicator={false}
           style={{ marginBottom: 20, maxHeight: 140 }}
           renderItem={({ item: cartItem }) => (
@@ -96,7 +98,7 @@ export function Cart({
                     {cartItem.product.name}
                   </Text>
                   <Text size={14} color="#666" style={{ marginTop: 4 }}>
-                    {formatCurrency(cartItem.product.price)}
+                    {formatCurrency(cartItem.product.priceInCents / 100)}
                   </Text>
                 </ProductDetails>
               </ProductContainer>

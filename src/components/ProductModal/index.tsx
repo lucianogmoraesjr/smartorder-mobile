@@ -14,10 +14,10 @@ import {
   PriceContainer,
 } from './styles';
 
-import { Text } from '../Text';
-import { Close } from '../Icons/Close';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { Button } from '../Button';
+import { Close } from '../Icons/Close';
+import { Text } from '../Text';
 
 interface ProductModalProps {
   visible: boolean;
@@ -80,14 +80,14 @@ export function ProductModal({
 
             <FlatList
               data={product.ingredients}
-              keyExtractor={(product) => product._id}
+              keyExtractor={(ingredients) => ingredients.ingredient.id}
               showsVerticalScrollIndicator={false}
               style={{ marginTop: 16 }}
-              renderItem={({ item: ingredient }) => (
+              renderItem={({ item }) => (
                 <Ingredient>
-                  <Text>{ingredient.icon}</Text>
+                  <Text>{item.ingredient.emoji}</Text>
                   <Text size={14} color="#666">
-                    {ingredient.name}
+                    {item.ingredient.name}
                   </Text>
                 </Ingredient>
               )}
@@ -101,7 +101,7 @@ export function ProductModal({
           <PriceContainer>
             <Text>Preço</Text>
             <Text size={20} weight="600">
-              {formatCurrency(product.price)}
+              {formatCurrency(product.priceInCents / 100)}
             </Text>
           </PriceContainer>
 

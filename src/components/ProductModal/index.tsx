@@ -54,7 +54,7 @@ export function ProductModal({
     >
       <Cover
         source={{
-          uri: `http://192.168.1.125:3333/tmp/${product.imagePath}`,
+          uri: product.imagePath,
         }}
       >
         <CloseButton onPress={onClose}>

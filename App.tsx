@@ -1,6 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Main } from './src/Main';
+import { StatusBar } from 'expo-status-bar';
+import { AuthProvider } from './src/contexts/AuthContext';
+import { Routes } from './src/routes';
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -14,9 +16,11 @@ export default function App() {
   }
 
   return (
-    <>
+    <NavigationContainer>
       <StatusBar style="dark" backgroundColor="#fafafa" />
-      <Main />
-    </>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </NavigationContainer>
   );
 }

@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import { Button } from '../../components/Button';
 import { Text } from '../../components/Text';
 import { useAuth } from '../../hooks/useAuth';
@@ -22,8 +27,8 @@ export function SignIn() {
   async function handleSignIn() {
     try {
       await signIn({ email, password });
-    } catch (error) {
-      console.log(error);
+    } catch {
+      Alert.alert('E-mail ou senha inválidos');
     }
   }
 
@@ -40,8 +45,8 @@ export function SignIn() {
                 Bem vindo(a) ao
               </Text>
               <Text size={24} weight="700">
-                WAITER
-                <Text size={24}>APP</Text>
+                SMART
+                <Text size={24}>ORDER</Text>
               </Text>
             </Logo>
 
@@ -52,6 +57,9 @@ export function SignIn() {
                   placeholder="Seu e-mail de acesso"
                   value={email}
                   onChangeText={setEmail}
+                  inputMode="email"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
                 />
               </InputGroup>
 
@@ -61,6 +69,7 @@ export function SignIn() {
                   placeholder="Informe sua senha"
                   value={password}
                   onChangeText={setPassword}
+                  secureTextEntry
                 />
               </InputGroup>
             </SignInForm>

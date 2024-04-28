@@ -30,7 +30,7 @@ Aqui estão as principais features do projeto:
 
 Para iniciar a aplicação localmente é necessário ter [Node](https://nodejs.org) e [yarn](https://yarnpkg.com) previamente instalados.
 
-Também é necessário estar rodando a API do projeto: [SmartOrder API](https://github.com/lucianogmoraesjr/smartorder-api)
+Também é necessário estar rodando a API do projeto: [SmartOrder API](https://github.com/lucianogmoraesjr/smartorder-api){:target="_blank"}
 
 ### Instalando as dependências
 
